@@ -87,6 +87,38 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Become Compy John in 6 months!',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `COMPY hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `COMPY, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `COMPY hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Become LARRY in 6 months!',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `LARRY hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `COMPY, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `COMPY hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -100,7 +132,7 @@ const data = [
     <p class="date">{date of the article}</p>
 
     {three separate paragraph elements}
-
+    <p><p><p><p><p><p>
     <span class="expandButton">+</span>
   </div>
 
@@ -115,3 +147,69 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+const articles = document.querySelector(".articles");
+
+function articleMaker(artObj) {
+
+  //instantiating all elements needed for an article object
+  const article = document.createElement("div");
+  const artTitle = document.createElement("h2");
+  const artDate = document.createElement("p");
+  const artPara1 = document.createElement("p")
+  const artPara2 = document.createElement("p")
+  const artPara3 = document.createElement("p")
+  const expandButton = document.createElement("button")
+
+  // setting up structure of elements 
+  article.appendChild(artTitle);
+  article.appendChild(artDate);
+  article.appendChild(artPara1);
+  article.appendChild(artPara2);
+  article.appendChild(artPara3);
+  article.appendChild(expandButton);
+
+  //adding class names to elements 
+  article.classList.add("article");
+  artTitle.classList.add("h2");
+  artDate.classList.add("date");
+  expandButton.classList.add("expandButton");
+
+  //setting text content using arguments (feeding from data array)
+  artTitle.textContent = artObj.title;
+  artDate.textContent = artObj.date;
+  artPara1.textContent = artObj.firstParagraph;
+  artPara2.textContent = artObj.secondParagraph;
+  artPara3.textContent = artObj.thirdParagraph;
+
+  //adding event listener to expand button 
+  expandButton.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  })
+
+  return article;
+};
+
+const artElems = data.map(elem => {
+  return articleMaker(elem);
+})
+
+artElems.forEach(elem => {
+  articles.appendChild(elem);
+})
+
+
+console.log(artElems);
+
+
+
+
+
+
+
+
+
+
+
+
+
