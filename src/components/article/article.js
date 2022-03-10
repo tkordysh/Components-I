@@ -199,7 +199,7 @@ artElems.forEach(elem => {
 })
 
 
-console.log(artElems);
+
 
 
 
